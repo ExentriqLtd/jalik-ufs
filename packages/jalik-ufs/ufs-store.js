@@ -181,13 +181,13 @@ export class Store {
                 }));
 
                 // Copy file data
-                store.write(rs, copyId, Meteor.bindEnvironment(function (err) {
+                store.write(rs, copyId, Meteor.bindEnvironment(function (err, newFile) {
                     if (err) {
                         self.getCollection().remove({_id: copyId});
                         self.onCopyError.call(self, err, fileId, file);
                     }
                     if (typeof callback === 'function') {
-                        callback.call(self, err, copyId, copy, store);
+                        callback.call(self, err, copyId, newFile, store);
                     }
                 }));
             };
